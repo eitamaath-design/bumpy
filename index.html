@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Bumpy - Modern Arcade Web Replica</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23facc15%22/><circle cx=%2235%22 cy=%2240%22 r=%228%22 fill=%22black%22/><circle cx=%2265%22 cy=%2240%22 r=%228%22 fill=%22black%22/><path d=%22M 30 65 Q 50 85 70 65%22 stroke=%22black%22 stroke-width=%226%22 fill=%22none%22 stroke-linecap=%22round%22/></svg>" />
+  </head>
+  <body>
+    <!-- Top Header -->
+    <header class="header-container">
+      <div class="brand-title">
+        <h1>BUMPY</h1>
+        <span class="badge">10 Stages</span>
+      </div>
+
+      <nav class="toolbar">
+        <button id="btn-sound" class="btn-arcade" title="Toggle Sound Effects">🔊 SFX: ON</button>
+        <button id="btn-music" class="btn-arcade" title="Toggle Music">🎵 MUSIC: ON</button>
+        <button id="btn-crt" class="btn-arcade" title="Toggle CRT Filter">📺 CRT: ON</button>
+        <button id="btn-level-select" class="btn-arcade btn-gold" title="Select Stage">🗺️ STAGES</button>
+        <button id="btn-help" class="btn-arcade" title="Game Instructions">❓ GUIDE</button>
+        <button id="btn-restart" class="btn-arcade" title="Restart Current Stage">↺ RESTART</button>
+        <button id="btn-fullscreen" class="btn-arcade" title="Fullscreen">⛶</button>
+      </nav>
+    </header>
+
+    <!-- Arcade Bezel Screen -->
+    <main id="arcade-wrapper">
+      <canvas id="gameCanvas" width="768" height="576"></canvas>
+    </main>
+
+    <!-- Virtual Touch Gamepad for Mobile & Tablets -->
+    <div class="touch-controls">
+      <div class="dpad">
+        <div></div>
+        <button id="touch-up" class="btn-touch" aria-label="High Jump">▲</button>
+        <div></div>
+        <button id="touch-left" class="btn-touch" aria-label="Move Left">◀</button>
+        <button id="touch-down" class="btn-touch" aria-label="Fast Fall">▼</button>
+        <button id="touch-right" class="btn-touch" aria-label="Move Right">▶</button>
+      </div>
+
+      <div class="touch-actions">
+        <button id="touch-jump-action" class="btn-action" aria-label="Jump / Super Bounce" onclick="document.getElementById('touch-up').dispatchEvent(new Event('mousedown'))">
+          <span>BOUNCE</span>
+          <small style="font-size: 10px;">HIGH</small>
+        </button>
+      </div>
+    </div>
+
+    <!-- Keyboard Controls Legend -->
+    <footer class="controls-legend">
+      <div><span class="key-pill">←</span><span class="key-pill">→</span> or <span class="key-pill">A</span><span class="key-pill">D</span> Steer Left / Right</div>
+      <div><span class="key-pill">↑</span> or <span class="key-pill">W</span> or <span class="key-pill">SPACE</span> High Jump</div>
+      <div><span class="key-pill">↓</span> or <span class="key-pill">S</span> Fast Fall</div>
+      <div><span class="key-pill">R</span> Restart</div>
+      <div><span class="key-pill">P</span> Pause</div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

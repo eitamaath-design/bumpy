@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+  --bg-color: #0b0f19;
+  --panel-bg: #151d30;
+  --accent-gold: #facc15;
+  --accent-cyan: #38bdf8;
+  --accent-rose: #f43f5e;
+  --border-color: #2a3b61;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+body {
+  background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(ellipse at 50% 0%, #1e1b4b 0%, transparent 60%),
+    radial-gradient(circle at 100% 100%, #180d2b 0%, transparent 40%);
+  color: #f8fafc;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: hidden;
+  padding: 12px;
+}
+
+/* Header & Arcade Title */
+.header-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 820px;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+.brand-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-title h1 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 24px;
+  color: var(--accent-gold);
+  text-shadow: 0 0 12px rgba(250, 204, 21, 0.6);
+  letter-spacing: 2px;
+}
+
+.badge {
+  background: linear-gradient(135deg, #0284c7, #2563eb);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Top Toolbar */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.btn-arcade {
+  background: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  color: #e2e8f0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-arcade:hover {
+  background: #1e293b;
+  border-color: var(--accent-cyan);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+}
+
+.btn-arcade:active {
+  transform: translateY(1px);
+}
+
+.btn-gold {
+  border-color: rgba(250, 204, 21, 0.4);
+  color: var(--accent-gold);
+}
+
+.btn-gold:hover {
+  border-color: var(--accent-gold);
+  box-shadow: 0 4px 12px rgba(250, 204, 21, 0.3);
+}
+
+/* Arcade Cabinet Bezel */
+#arcade-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 768px;
+  background: #0f172a;
+  border-radius: 12px;
+  box-shadow: 
+    0 12px 36px rgba(0, 0, 0, 0.8),
+    0 0 0 2px rgba(56, 189, 248, 0.25),
+    0 0 24px rgba(56, 189, 248, 0.15);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  touch-action: none;
+}
+
+#gameCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  cursor: pointer;
+  touch-action: none;
+}
+
+/* Virtual Touch Gamepad for Mobile & Tablets */
+.touch-controls {
+  display: none; /* Shown on small screens or touch */
+  width: 100%;
+  max-width: 768px;
+  margin-top: 14px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px;
+  touch-action: none;
+}
+
+@media (max-width: 820px), (pointer: coarse) {
+  .touch-controls {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 6px;
+  }
+
+  .brand-title h1 {
+    font-size: 18px;
+  }
+
+  .badge {
+    font-size: 9px;
+  }
+
+  .btn-arcade {
+    font-size: 10px;
+    padding: 5px 8px;
+  }
+
+  .dpad {
+    grid-template-columns: repeat(3, 46px) !important;
+    grid-template-rows: repeat(2, 46px) !important;
+    gap: 6px !important;
+  }
+
+  .btn-touch {
+    font-size: 18px !important;
+    border-radius: 8px !important;
+  }
+
+  .btn-action {
+    width: 62px !important;
+    height: 62px !important;
+    font-size: 12px !important;
+  }
+
+  .controls-legend {
+    font-size: 10px !important;
+    padding: 6px 10px !important;
+  }
+}
+
+.dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  grid-template-rows: repeat(2, 56px);
+  gap: 8px;
+}
+
+.btn-touch {
+  background: rgba(30, 41, 59, 0.85);
+  border: 2px solid var(--accent-cyan);
+  border-radius: 12px;
+  color: white;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  transition: background 0.1s;
+}
+
+.btn-touch:active {
+  background: var(--accent-cyan);
+  color: #0f172a;
+}
+
+.touch-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-action {
+  width: 72px;
+  height: 72px;
+  border-radius: 36px;
+  border: 2px solid var(--accent-gold);
+  background: rgba(250, 204, 21, 0.15);
+  color: var(--accent-gold);
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.btn-action:active {
+  background: var(--accent-gold);
+  color: #0f172a;
+}
+
+/* Controls Guide Banner */
+.controls-legend {
+  margin-top: 14px;
+  width: 100%;
+  max-width: 768px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 10px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 12px;
+  color: #94a3b8;
+  gap: 8px;
+}
+
+.key-pill {
+  background: #1e293b;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  color: #f1f5f9;
+  padding: 2px 6px;
+  font-family: monospace;
+  font-weight: bold;
+  margin-right: 4px;
+}
