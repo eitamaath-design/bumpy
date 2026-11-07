@@ -45,13 +45,20 @@ flowchart TD
 
 ---
 
-## 3. Environment, Infrastructure & Configuration
+## 3. Environment, Infrastructure & Deployment
 
 - **Node.js:** v24.18.0
 - **NPM:** 11.16.0
-- **Dev Server Port:** Default Vite port `5173` (or dynamic fallback)
-- **Target Browsers:** Modern evergreen browsers (Chrome, Edge, Firefox, Safari, iOS Safari, Android Chrome)
-- **Deployment:** Static asset output (`dist/` directory) suitable for GitHub Pages, Netlify, Vercel, or local static servers.
+- **GitHub Repository:** `https://github.com/eitamaath-design/bumpy`
+- **Live Production URL:** `https://eitamaath-design.github.io/bumpy/`
+- **Hosting Provider:** GitHub Pages (Automated via GitHub Actions `.github/workflows/deploy.yml`)
+- **Dev Server Port:** Default Vite port `5173`
+- **Target Browsers:** Modern evergreen browsers on Desktop and Mobile (Chrome, Edge, Firefox, Safari, iOS Safari, Android Chrome)
+- **Mobile Optimizations:**
+  - Responsive 4:3 canvas scaling with `touch-action: none` to prevent gestures and pinch-zoom interference.
+  - Virtual On-Screen Gamepad: D-pad (Left, Right, Jump, Fast-fall) and high-bounce action button with haptic feedback vibration.
+  - Dual-mode direct screen touch steering: tap left/right halves to move, tap top to high jump, tap bottom to dive.
+  - Immediate Web Audio unlocking on first touch gesture.
 
 ---
 
