@@ -72,6 +72,9 @@ npm install
 # Start local development server with hot module reload
 npm run dev
 
+# Run headless passability and physics simulation test suite
+npm test
+
 # Type check and build production distribution
 npm run build
 
@@ -106,3 +109,5 @@ npm run preview
 | `src/engine/Types.ts` | TypeScript interfaces, platform tile types, item definitions |
 | `src/levels/levels.ts` | 10 handcrafted levels with tile layouts, items, hazards, and puzzle mechanics |
 | `src/style.css` | Arcade cabinet styling, responsive scaling, touch controls |
+| `tests/levels.test.ts` | Headless level passability and trajectory verification test suite |
+| `tests/physics-simulation.test.ts` | Automated 60 FPS real-physics frame-by-frame traversal simulation test |
