@@ -13,13 +13,17 @@ export class AudioManager {
   private musicBeat: number = 0;
 
   constructor() {
-    this.isMutedSound = localStorage.getItem('bumpy_sfx_muted') === 'true';
-    this.isMutedMusic = localStorage.getItem('bumpy_music_muted') === 'true';
+    if (typeof localStorage !== 'undefined') {
+      this.isMutedSound = localStorage.getItem('bumpy_sfx_muted') === 'true';
+      this.isMutedMusic = localStorage.getItem('bumpy_music_muted') === 'true';
+    }
   }
 
   private initCtx() {
+    if (typeof window === 'undefined') return;
     if (!this.ctx) {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (!AudioCtx) return;
       this.ctx = new AudioCtx();
 
       this.musicGain = this.ctx.createGain();
@@ -42,7 +46,9 @@ export class AudioManager {
 
   public toggleSound(): boolean {
     this.isMutedSound = !this.isMutedSound;
-    localStorage.setItem('bumpy_sfx_muted', String(this.isMutedSound));
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('bumpy_sfx_muted', String(this.isMutedSound));
+    }
     if (this.sfxGain && this.ctx) {
       this.sfxGain.gain.setValueAtTime(this.isMutedSound ? 0 : 0.35, this.ctx.currentTime);
     }
@@ -51,7 +57,9 @@ export class AudioManager {
 
   public toggleMusic(): boolean {
     this.isMutedMusic = !this.isMutedMusic;
-    localStorage.setItem('bumpy_music_muted', String(this.isMutedMusic));
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('bumpy_music_muted', String(this.isMutedMusic));
+    }
     if (this.musicGain && this.ctx) {
       this.musicGain.gain.setValueAtTime(this.isMutedMusic ? 0 : 0.25, this.ctx.currentTime);
     }

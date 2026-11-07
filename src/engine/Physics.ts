@@ -5,13 +5,13 @@ import { audio } from './Audio';
 import { ParticleSystem } from './Particles';
 
 export class PhysicsEngine {
-  private gravity: number = 0.42;
-  private maxFallSpeed: number = 10.5;
-  private moveSpeed: number = 3.6;
+  private gravity: number = 0.38;
+  private maxFallSpeed: number = 10.0;
+  private moveSpeed: number = 4.2;
   private iceSpeedMultiplier: number = 1.35;
-  private normalBounceVel: number = -8.2;
-  private highBounceVel: number = -11.6;
-  private springBounceVel: number = -14.4;
+  private normalBounceVel: number = -9.4;
+  private highBounceVel: number = -13.6;
+  private springBounceVel: number = -17.5;
 
   public update(
     bumpy: BumpyState,
@@ -86,6 +86,13 @@ export class PhysicsEngine {
       bumpy.vy += this.gravity * 2.2; // Fast fall / dive
     } else {
       bumpy.vy += this.gravity;
+    }
+
+    // High bounce boost if player presses / holds UP while rising
+    if (inputs.up && bumpy.vy < 0 && bumpy.vy > this.highBounceVel) {
+      bumpy.vy = this.highBounceVel;
+      bumpy.squashX = 0.75;
+      bumpy.squashY = 1.35;
     }
 
     if (bumpy.vy > this.maxFallSpeed) {
@@ -178,14 +185,21 @@ export class PhysicsEngine {
     const ts = level.tileSize;
     const leftCol = Math.floor((bumpy.x - bumpy.radius) / ts);
     const rightCol = Math.floor((bumpy.x + bumpy.radius) / ts);
-    const topRow = Math.floor((bumpy.y - bumpy.radius * 0.8) / ts);
-    const bottomRow = Math.floor((bumpy.y + bumpy.radius * 0.8) / ts);
+    const topRow = Math.floor((bumpy.y - bumpy.radius * 0.7) / ts);
+    const bottomRow = Math.floor((bumpy.y + bumpy.radius * 0.7) / ts);
 
     for (let r = topRow; r <= bottomRow; r++) {
       for (let c = leftCol; c <= rightCol; c++) {
         if (r < 0 || r >= level.gridHeight || c < 0 || c >= level.gridWidth) continue;
         const tile = tileGrid[r][c];
         if (this.isSolidTile(tile.type)) {
+          // Ledge corner tolerance: if Bumpy's bottom is near the top of the tile, don't rebound horizontally
+          const tileTopY = r * ts;
+          const feetY = bumpy.y + bumpy.radius;
+          if (feetY - tileTopY < 14 && bumpy.vy < 3) {
+            continue; // Allow cresting the ledge smoothly
+          }
+
           // Check Hammer interaction
           if (tile.type === TileType.HAMMER_BLOCK && bumpy.hammers > 0) {
             bumpy.hammers--;
@@ -206,11 +220,11 @@ export class PhysicsEngine {
           if (bumpy.vx > 0) {
             // Colliding into wall on right
             bumpy.x = c * ts - bumpy.radius;
-            bumpy.vx = -bumpy.vx * 0.5; // Rebound
+            bumpy.vx = 0; // Seamless wall-hugging so player can crest ledges
           } else if (bumpy.vx < 0) {
             // Colliding into wall on left
             bumpy.x = (c + 1) * ts + bumpy.radius;
-            bumpy.vx = -bumpy.vx * 0.5;
+            bumpy.vx = 0;
           }
         }
       }
