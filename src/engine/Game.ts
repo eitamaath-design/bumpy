@@ -45,6 +45,7 @@ export class BumpyGame {
 
   // Persistence
   private progress: { [levelId: number]: LevelProgress } = {};
+  private previousState: GameState = 'TITLE';
 
   // Input debounces
   private lastPauseState: boolean = false;
@@ -210,10 +211,28 @@ export class BumpyGame {
     });
   }
 
+  public getState(): GameState {
+    return this.state;
+  }
+
   public handlePointerClick(x: number, y: number) {
     if (this.state === 'TITLE') {
-      // Start Game
+      const w = this.canvas.width;
+      // Level Select button on Title: y between 420 and 460
+      if (x >= w / 2 - 130 && x <= w / 2 + 130 && y >= 420 && y <= 460) {
+        this.openLevelSelect();
+        return;
+      }
+      // How to Play button on Title: y between 475 and 515
+      if (x >= w / 2 - 130 && x <= w / 2 + 130 && y >= 475 && y <= 515) {
+        this.openInstructions();
+        return;
+      }
+      // Clicking anywhere else starts the game
       this.startNewGame();
+    } else if (this.state === 'INSTRUCTIONS') {
+      // Clicking "GOT IT! BACK" or anywhere on the instructions screen closes it
+      this.closeInstructions();
     } else if (this.state === 'LEVEL_SELECT') {
       this.handleLevelSelectClick(x, y);
     } else if (this.state === 'LEVEL_CLEAR') {
@@ -243,15 +262,25 @@ export class BumpyGame {
   }
 
   public openLevelSelect() {
+    if (this.state !== 'LEVEL_SELECT') {
+      this.previousState = this.state;
+    }
     this.state = 'LEVEL_SELECT';
   }
 
+  public closeLevelSelect() {
+    this.state = this.previousState || 'TITLE';
+  }
+
   public openInstructions() {
+    if (this.state !== 'INSTRUCTIONS') {
+      this.previousState = this.state;
+    }
     this.state = 'INSTRUCTIONS';
   }
 
   public closeInstructions() {
-    this.state = 'TITLE';
+    this.state = this.previousState || 'TITLE';
   }
 
   public selectLevel(idx: number) {
@@ -289,7 +318,9 @@ export class BumpyGame {
 
     // Global Key toggles
     if (inputs.pause && !this.lastPauseState) {
-      if (this.state === 'PLAYING') this.state = 'PAUSED';
+      if (this.state === 'INSTRUCTIONS') this.closeInstructions();
+      else if (this.state === 'LEVEL_SELECT') this.closeLevelSelect();
+      else if (this.state === 'PLAYING') this.state = 'PAUSED';
       else if (this.state === 'PAUSED') this.state = 'PLAYING';
     }
     this.lastPauseState = inputs.pause;

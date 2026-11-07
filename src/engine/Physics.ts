@@ -167,10 +167,15 @@ export class PhysicsEngine {
 
     // 10. Exit Door Collision
     if (isExitOpen && !bumpy.isDead) {
-      const exitPixelX = (level.exitX + 0.5) * level.tileSize;
-      const exitPixelY = (level.exitY + 0.5) * level.tileSize;
-      const distToExit = Math.hypot(bumpy.x - exitPixelX, bumpy.y - exitPixelY);
-      if (distToExit < bumpy.radius + 16) {
+      const exitDoorX = level.exitX * level.tileSize;
+      const exitDoorY = level.exitY * level.tileSize;
+      const ts = level.tileSize;
+
+      // Generous exit bounds: Bumpy touches or stands in/near the door
+      const inX = bumpy.x >= exitDoorX - 16 && bumpy.x <= exitDoorX + ts + 16;
+      const inY = bumpy.y >= exitDoorY - 24 && bumpy.y <= exitDoorY + ts + 36;
+
+      if (inX && inY) {
         onLevelClear();
       }
     }

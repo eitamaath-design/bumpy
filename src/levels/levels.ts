@@ -17,7 +17,7 @@ export const LEVELS: LevelDef[] = [
     playerStartX: 2,
     playerStartY: 9,
     exitX: 13,
-    exitY: 2,
+    exitY: 1,
     timeLimit: 60,
     parTime: 20,
     tiles: [
@@ -58,7 +58,7 @@ export const LEVELS: LevelDef[] = [
     playerStartX: 1,
     playerStartY: 9,
     exitX: 1,
-    exitY: 2,
+    exitY: 1,
     timeLimit: 60,
     parTime: 25,
     tiles: [
@@ -106,8 +106,8 @@ export const LEVELS: LevelDef[] = [
     tiles: [
       // 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // 0
-      [1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1], // 1 Exit top center
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], // 2
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], // 1 Exit doorway in air
+      [1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1], // 2 Exit platform at top center
       [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1], // 3 High shelves
       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], // 4
       [1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1], // 5 Mid platforms
@@ -184,7 +184,7 @@ export const LEVELS: LevelDef[] = [
     playerStartX: 1,
     playerStartY: 9,
     exitX: 14,
-    exitY: 2,
+    exitY: 1,
     timeLimit: 65,
     parTime: 28,
     tiles: [
@@ -268,7 +268,7 @@ export const LEVELS: LevelDef[] = [
     playerStartX: 1,
     playerStartY: 9,
     exitX: 8,
-    exitY: 2,
+    exitY: 1,
     timeLimit: 60,
     parTime: 25,
     tiles: [

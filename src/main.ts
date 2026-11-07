@@ -53,13 +53,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if (btnLevelSelect) {
     btnLevelSelect.addEventListener('click', () => {
-      game.openLevelSelect();
+      if (game.getState() === 'LEVEL_SELECT') {
+        game.closeLevelSelect();
+      } else {
+        game.openLevelSelect();
+      }
     });
   }
 
   if (btnHelp) {
     btnHelp.addEventListener('click', () => {
-      game.openInstructions();
+      if (game.getState() === 'INSTRUCTIONS') {
+        game.closeInstructions();
+      } else {
+        game.openInstructions();
+      }
     });
   }
 
